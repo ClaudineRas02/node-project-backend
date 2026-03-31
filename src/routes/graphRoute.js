@@ -1,9 +1,11 @@
 import { Router } from "express";
+import { getBilanController } from "../controllers/bilanController.js";
 
 const router = Router()
 
 /**
- * definir tes routes pour get ou post ..ici (nancy)
+ * Route pour le bilan (salaire min, max, total)
  */
+router.get('/bilan', getBilanController);
 
 export default router;
