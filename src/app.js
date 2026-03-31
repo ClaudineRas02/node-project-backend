@@ -1,17 +1,23 @@
-const express = require("express");
-const cors = require("cors");
+import express from 'express'
+import cors from 'cors'
+import morgan from 'morgan'
+import indexRoute from './routes/indexRoute.js'
 
-const healthRouter = require("./routes/health");
-const { notFoundHandler, errorHandler } = require("./middlewares/error");
+const app = express()
 
-const app = express();
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-app.use(cors());
-app.use(express.json());
+app.use(morgan('dev'))
 
-app.use("/health", healthRouter);
+app.use(
+  cors({
+    origin: ['http://localhost:5173'],
+    credentials: true,
+  })
+)
 
-app.use(notFoundHandler);
-app.use(errorHandler);
+app.use("/api",indexRoute)
 
-module.exports = app;
+export default app;
