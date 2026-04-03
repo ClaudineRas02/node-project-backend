@@ -3,12 +3,12 @@ import { pool } from "../config/db.js";
 export async function getAllEnseignant() {
     const sql = "SELECT * FROM Enseignant"
     const { rows } = await pool.query(sql)
-    return rows[0]
+    return rows
 }
 
 export async function addEnseignant(enseignant) {
     try {
-        const sql = "INSERT INTO Enseignant(nom, nbHeures, tauxHoraire) VALUES ($1, $2, $3) RETURNING *";
+        const sql = "INSERT INTO enseignant(nom, nbheures, tauxhoraire) VALUES ($1, $2, $3) RETURNING *";
         const res = await pool.query(sql, [enseignant.nom, enseignant.nbHeures, enseignant.tauxHoraire]);
         return res.rows[0]
     }
@@ -22,7 +22,7 @@ export async function addEnseignant(enseignant) {
 
 export async function deleteEnseignant(id) {
     try{
-        const sql = 'DELETE FROM Enseignant WHERE idEnseignant = $1';
+        const sql = 'DELETE FROM enseignant WHERE idEnseignant = $1';
         const res = await pool.query(sql, [id]);
         return res.rowCount
     }
@@ -34,7 +34,7 @@ export async function deleteEnseignant(id) {
 
 export async function updateEnseignant(enseignant, id) {
     try{
-        const sql = 'UPDATE Enseignant SET nom = $1, nbHeures = $2, tauxHoraire = $3 WHERE idEnseignant = $4 RETURNING *';
+        const sql = 'UPDATE enseignant SET nom = $1, nbheures = $2, tauxhoraire = $3 WHERE idEnseignant = $4 RETURNING *';
         const res = await pool.query(sql, [enseignant.nom, enseignant.nbHeures, enseignant.tauxHoraire, id]);
         return res.rows[0]
     }
