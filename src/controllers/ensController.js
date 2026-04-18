@@ -25,6 +25,7 @@ export async function addEnseignantController(req, res, next) {
 
         res.json({
             ok:true,
+            message:"Ajout de nouveau enseignant effectué",
             data: result
         })
     }
@@ -38,7 +39,7 @@ export async function deleteEnseignantController(req,res,next) {
         const id =  req.params.id;
         const result = await deleteEnseignantService(id);
         if(!result) return res.status(404).json({ok:false, message:'Enseignant non trouvé'});
-        res.json({ok:true});
+        res.json({ok:true,message:"Suppression effectué"});
 
     }
     catch(error){
@@ -52,7 +53,7 @@ export async function updateEnseignantController(req,res,next) {
         const enseignant = req.body;
         const result = await updateEnseignantService(enseignant, id);
         if(!result) return res.status(404).json({ok:false, message: 'Enseignant non trouvé'});
-        res.json({ok:true, data: result});
+        res.json({ok:true,message:"Modification réussi", data: result});
     }
     catch(error){
         next(error)
